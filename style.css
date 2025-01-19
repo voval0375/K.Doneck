@@ -125,4 +125,33 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+/* Стилі для меню */
+nav {
+    background: linear-gradient(90deg, #f0f0f0, #c0c0c0, #808080); /* Плавний перехід від світло-сірого до темно-сірого */
+    padding: 10px 20px; /* Відступи всередині меню */
+    display: flex; /* Для розташування елементів у ряд */
+    justify-content: space-around; /* Рівномірний розподіл елементів */
+    align-items: center; /* Вирівнювання по вертикалі */
+    border-radius: 5px; /* Злегка заокруглені кути */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Додаємо легку тінь */
+    transition: all 0.3s ease-in-out; /* Плавний перехід при зміні стилю */
+}
+
+/* Стилі для пунктів меню */
+nav a {
+    color: #fff; /* Білий текст */
+    text-decoration: none; /* Без підкреслення */
+    font-size: 16px; /* Розмір тексту */
+    font-weight: 500; /* Напівжирний шрифт */
+    padding: 8px 12px; /* Відступи для посилань */
+    transition: all 0.3s ease; /* Плавні переходи для ефектів */
+}
+
+/* Ефект при наведенні */
+nav a:hover {
+    color: #808080; /* Текст змінює колір на темно-сірий */
+    background-color: #fff; /* Фон стає білим */
+    border-radius: 4px; /* Заокруглення для фону */
+}
+
 
