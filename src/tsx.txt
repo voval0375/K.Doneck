@@ -1,0 +1,272 @@
+  import React, { useState } from 'react';
+  import { ChevronDown, ChevronUp } from 'lucide-react';
+  import * as Collapsible from '@radix-ui/react-collapsible';
+  
+  function App() {
+    const [openTariffs, setOpenTariffs] = useState({
+      consultation: false,
+      maxi: false
+    });
+  
+    const toggleTariff = (tariff: 'consultation' | 'maxi') => {
+      setOpenTariffs(prev => ({
+        ...prev,
+        [tariff]: !prev[tariff]
+      }));
+    };
+  
+    return (
+      <div className="min-h-screen bg-[#f4f4f4] py-5">
+        <div className="max-w-[900px] mx-auto my-5 p-5 bg-white rounded-lg shadow-md text-center">
+          <div className="relative rounded-t-lg overflow-hidden">
+            <img 
+              src="https://i.imgur.com/io8qvFt.jpeg" 
+              alt="Онлайн-косметолог Olena Leonova"
+              className="w-full h-auto rounded-t-lg"
+            />
+          </div>
+  
+          <div className="mt-12 mb-8">
+            <h2 className="text-2xl font-bold mb-6">Результати, які отримують мої клієнти</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-4">
+                <img src="https://i.imgur.com/bLWXltT.jpeg" alt="До" className="w-full rounded-lg" />
+                <p className="text-gray-600">До</p>
+              </div>
+              <div className="space-y-4">
+                <img src="https://i.imgur.com/7yYf9Pb.jpeg" alt="Після" className="w-full rounded-lg" />
+                <p className="text-gray-600">Після</p>
+              </div>
+            </div>
+            <p className="text-xl mt-6 text-[#c0392b]">Хочеш так само? Тоді обирай зручний тариф і почнемо покращувати стан твоєї шкіри</p>
+          </div>
+  
+          <Collapsible.Root 
+            open={openTariffs.consultation}
+            onOpenChange={() => toggleTariff('consultation')}
+            className="mb-8"
+          >
+            <Collapsible.Trigger className="w-full">
+              <div className="flex items-center justify-between bg-[#FFC2F6] text-white p-4 rounded-lg cursor-pointer">
+                <h2 className="text-2xl uppercase font-bold">ТАРИФ «Консультація»</h2>
+                {openTariffs.consultation ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
+              </div>
+            </Collapsible.Trigger>
+            
+            <Collapsible.Content className="mt-4">
+              <div className="grid md:grid-cols-2 gap-4">
+                <TariffCard
+                  title="FACE"
+                  items={[
+                    'Акне',
+                    'Розацеа',
+                    'Гіперкератоз',
+                    'Пігментація',
+                    'Дерматити',
+                    'Сухість',
+                    'Вікові зміни'
+                  ]}
+                  price="600 грн / 15€"
+                  calendlyUrl="https://calendly.com/alena-leonova-036173/30min"
+                />
+                <TariffCard
+                  title="BODY"
+                  items={[
+                    'Акне',
+                    'Гіперкератоз',
+                    'Надмірна сухість'
+                  ]}
+                  price="550 грн / 13€"
+                  calendlyUrl="https://calendly.com/alena-leonova-036173/30min"
+                />
+              </div>
+  
+              <div className="grid md:grid-cols-2 gap-4 mt-4">
+                <TariffCard
+                  title="FACE + BODY"
+                  description="Для тих, хто хоче вирішити проблему зі шкірою обличчя та тіла."
+                  price="900 грн / 20€"
+                  calendlyUrl="https://calendly.com/alena-leonova-036173/30min"
+                />
+                <TariffCard
+                  title="ПОВТОРНА КОНСУЛЬТАЦІЯ"
+                  items={[
+                    'Терміново поставити питання',
+                    'Відкоригувати догляд',
+                    'Реакція шкіри на засоби',
+                    'Для контролю динаміки при лікуванні (обов\'язкова 1/міс.)'
+                  ]}
+                  note="*Консультація вважається повторною, якщо ваш період підтримки закінчився та з первинної консультації пройшло не більше 3 міс."
+                  price="400 грн / 10€"
+                  calendlyUrl="https://calendly.com/alena-leonova-036173/30min"
+                />
+              </div>
+  
+              <div className="grid md:grid-cols-2 gap-8 mt-10">
+                <InfoSection
+                  title="ЩО ВХОДИТЬ:"
+                  items={[
+                    'ПІДТРИМКА 3 МІСЯЦІ - постійний зв\'язок зі мною',
+                    'Розбір типу та стану вашої шкіри',
+                    'Аналіз вашого догляду (від декоративної косметики до доглядових засобів)',
+                    'Підбір засобів на ваш бюджет',
+                    'Рекомендації щодо харчування, способу життя, нутрицевтики, процедур',
+                    'Фотоконтроль кожні 2 тижні',
+                    'Безкоштовна корекція схеми догляду'
+                  ]}
+                />
+                <InfoSection
+                  title="КОМУ ПІДІЙДЕ:"
+                  items={[
+                    'Розацеа, середня та важка форма акне',
+                    'Пігментація, вікові зміни',
+                    'Для комплексного підходу до лікування',
+                    'Тим, хто хоче бути на зв\'язку зі мною',
+                    'Потребує психологічної підтримки'
+                  ]}
+                />
+              </div>
+            </Collapsible.Content>
+          </Collapsible.Root>
+  
+          <Collapsible.Root 
+            open={openTariffs.maxi}
+            onOpenChange={() => toggleTariff('maxi')}
+          >
+            <Collapsible.Trigger className="w-full">
+              <div className="flex items-center justify-between bg-[#FFC2F6] text-white p-4 rounded-lg cursor-pointer">
+                <h2 className="text-2xl uppercase font-bold">ТАРИФ «MAXI»</h2>
+                {openTariffs.maxi ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
+              </div>
+            </Collapsible.Trigger>
+            
+            <Collapsible.Content className="mt-4">
+              <div className="grid md:grid-cols-2 gap-4">
+                <TariffCard
+                  title="FACE"
+                  description="Підбір догляду за шкірою обличчя при:"
+                  items={[
+                    'Акне',
+                    'Розацеа',
+                    'Гіперкератоз',
+                    'Дерматити',
+                    'Пігментація',
+                    'Вікові зміни'
+                  ]}
+                  price="1300 грн / 30€"
+                  calendlyUrl="https://calendly.com/alena-leonova-036173/30min"
+                />
+                <TariffCard
+                  title="BODY"
+                  description="Підбір догляду за шкірою тіла при:"
+                  items={[
+                    'Акне',
+                    'Гіперкератоз'
+                  ]}
+                  price="1150 грн / 28€"
+                  calendlyUrl="https://calendly.com/alena-leonova-036173/30min"
+                />
+              </div>
+  
+              <div className="mt-4">
+                <TariffCard
+                  title="FACE + BODY"
+                  description="Підбір догляду для шкіри обличчя та тіла"
+                  items={[
+                    'Для тих, хто хоче вирішити будь яку проблему зі шкірою обличчя та тіла'
+                  ]}
+                  price="2000 грн / 50€"
+                  calendlyUrl="https://calendly.com/alena-leonova-036173/30min"
+                />
+              </div>
+  
+              <div className="grid md:grid-cols-2 gap-8 mt-10">
+                <InfoSection
+                  title="ЩО ВХОДИТЬ:"
+                  items={[
+                    'ПІДТРИМКА 3 МІСЯЦІ - постійний зв\'язок зі мною',
+                    'Розбір типу та стану вашої шкіри',
+                    'Повний аналіз вашого наявного догляду від декоративної косметики до доглядових засобів',
+                    'Підбір засобів на ваш бюджет, що закриють усі потреби вашої шкіри',
+                    'Рекомендації щодо харчування, способу життя, нутрицевтики, косметологічних процедур + додаткові пдф-файли: «процедури у косметолога» -залежно від проблеми, «некомедогенна декоративна косметика», «комплексний підхід у лікуванні акне/розацеа», «приклад меню на один тиждень» - акне/розацеа',
+                    'Фотоконтроль кожні 2 тижні для відстеження динаміки лікування',
+                    'Безкоштовна корекція схеми догляду за потреби (в рамках періоду підтримки)'
+                  ]}
+                />
+                <InfoSection
+                  title="КОМУ ПІДІЙДЕ:"
+                  items={[
+                    'Розацеа, середня та важка форма акне (Постійні Висипання, стійке запалення, болючі, глибокі ураження)',
+                    'Пігментація, вікові зміни',
+                    'Для тих, хто хоче комплексно працювати над проблемою та отримати додаткові рекомендації',
+                    'Хто бажає мати змогу бути постійно на зв\'язку зі мною, ставити свої запитання, вчасно корегувати догляд',
+                    'Потреба в психологічній підтримці під час лікування'
+                  ]}
+                />
+              </div>
+            </Collapsible.Content>
+          </Collapsible.Root>
+        </div>
+      </div>
+    );
+  }
+  
+  interface TariffCardProps {
+    title: string;
+    items?: string[];
+    description?: string;
+    note?: string;
+    price: string;
+    calendlyUrl: string;
+  }
+  
+  function TariffCard({ title, items, description, note, price, calendlyUrl }: TariffCardProps) {
+    return (
+      <div className="bg-[#FFC2F6] rounded-lg p-6 text-white flex flex-col h-full">
+        <h3 className="text-xl font-bold uppercase mb-4 text-center">{title}</h3>
+        <div className="flex-grow">
+          {description && <p className="text-lg text-left mb-4">{description}</p>}
+          {items && (
+            <ul className="list-disc list-inside mb-4 text-left text-lg">
+              {items.map((item, index) => (
+                <li key={index} className="mb-2">{item}</li>
+              ))}
+            </ul>
+          )}
+          {note && <p className="text-base text-left mb-4 italic">{note}</p>}
+          <p className="text-lg font-bold text-left mb-4">ЦІНА: {price}</p>
+        </div>
+        <a 
+          href={calendlyUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block w-4/5 mx-auto px-6 py-2 bg-white text-[#c0392b] font-bold rounded-full uppercase hover:bg-[#f4dada] transition-colors text-center"
+        >
+          Записатися
+        </a>
+      </div>
+    );
+  }
+  
+  interface InfoSectionProps {
+    title: string;
+    items: string[];
+  }
+  
+  function InfoSection({ title, items }: InfoSectionProps) {
+    return (
+      <div className="text-[#c0392b]">
+        <h2 className="text-2xl font-bold mb-6 text-left">{title}</h2>
+        <ul className="space-y-4">
+          {items.map((item, index) => (
+            <li key={index} className="relative pl-5 text-left">
+              <span className="absolute left-0 top-0">•</span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+  
+  export default App;
